@@ -426,15 +426,12 @@
 
 - name: "SCORED | 2.2.2 | PATCH | Ensure X Window System is not installed"
   yum:
-    name: "{{item}}"
+    name: ["@X Window System", "xorg-x11*"]
     state: absent
   when:
     - centos7cis_level1 is defined and centos7cis_level1
-    - centos7cis_xwindows_required is defined not centos7cis_xwindows_required
+    - centos7cis_xwindows_required is defined and not centos7cis_xwindows_required
     - centos7cis_disable_service_checks is defined and centos7cis_disable_service_checks
-  with_items:
-    - "@X Window System"
-    - "xorg-x11*"
   tags:
     - level1
     - scored
